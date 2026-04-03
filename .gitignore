@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# LaTeX build artifacts
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.spl
+paper/*.synctex.gz
+paper/*.pdf
+paper/main.tex.backup
+
+# Large result files (reproducibility/data/ has curated subset)
+results/
+logs/
+
+# Experiment outputs (not needed for reproducibility)
+experiments_cross_dimensional/results/
+experiments_cross_dimensional/figures/
+experiments_progressive_fidelity/results/
+experiments_progressive_fidelity/figures/
+
+# AI assistant files
+CLAUDE.md
+.claude/
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Byte-compiled
+*.so
+
+# Virtual environments
+venv/
+.env/
+# Large Burgers reference solutions (13MB each)
+reproducibility/data/references/burgers_reference_*.npz
