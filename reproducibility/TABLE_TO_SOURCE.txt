@@ -1,0 +1,75 @@
+TABLE-TO-SOURCE MAPPING
+========================
+Maps every paper table (main.tex) to its JSON data source.
+All JSONs are in reproducibility/data/.
+
+NOTE: The composite NN comparison (tab:composite) was REMOVED from the paper.
+      The rerun script used a broken dummy model (naive 2-scalar weighted average
+      instead of the real Meng-Karniadakis architecture). The composite_alpha0.5.json
+      in results/rerun/ contains INVALID data and is excluded from this package.
+
+────────────────────────────────────────────────────────────────────────────────
+TABLE                  | SOURCE JSON                                      | NOTES
+────────────────────────────────────────────────────────────────────────────────
+tab:lf_quality         | (computed analytically from solver)               | N_terms vs. LF error %. No JSON needed.
+tab:keff               | (computed analytically from Proposition 1)        | K_eff(α) formula. No JSON needed.
+────────────────────────────────────────────────────────────────────────────────
+
+CORE 1D EXPERIMENTS (results/rerun/ — canonical, post-March 29 config)
+────────────────────────────────────────────────────────────────────────────────
+tab:ncol (α=0.5)       | core/ncol_alpha0.5_nterms12.json                 | 10 seeds, N_col={100,200,500}
+tab:ncol (α=0.7)       | core/ncol_alpha0.7_nterms12.json                 | PENDING — experiment running
+tab:ncol (α=1.0)       | core/ncol_alpha1.0_nterms12.json                 | 10 seeds, N_col={100,200,500}
+tab:fidelity_sweep_a05 | core/fidelity_10seed_alpha0.5.json               | 10 seeds, N_terms={8,12,15,20}
+tab:fidelity_sweep     | core/fidelity_10seed_alpha1.0.json               | 10 seeds, N_terms={5,8,10,12,15,20}
+tab:noise              | core/noise_alpha1.0.json                         | 5 seeds, noise={0,1,5,10,20}%
+tab:bvtt               | core/bvtt_alpha0.5.json                          | 10 seeds, full spatial predictions
+
+tab:alpha_sweep        | Combination of ncol files above                  | Cross-table: N_col=100 row from each α
+tab:fidelity_cross     | Combination of fidelity files above              | Cross-table: α × N_terms interaction
+────────────────────────────────────────────────────────────────────────────────
+
+ABLATIONS
+────────────────────────────────────────────────────────────────────────────────
+tab:gl_ablation        | ablations/gl_ablation_alpha0.5.json              | 10 seeds, gl_mem={2,5,10,20,50,100}
+(α=1.0 control)        | ablations/gl_ablation_alpha1.0_control.json      | Confirms no effect at α=1.0
+────────────────────────────────────────────────────────────────────────────────
+
+STRESS TESTS
+────────────────────────────────────────────────────────────────────────────────
+tab:2d_ncol            | stress_tests/2d_alpha0.5_ncol{50,100,200,500,1500}.json
+tab:2d_ncol_a10        | stress_tests/2d_alpha1.0_ncol{200,500,1500}.json
+tab:burgers            | stress_tests/results_alpha{0.5,0.7,1.0}_ncol{100,200,500}.json
+tab:burgers_ansatz     | stress_tests/ansatz_alpha{0.5,1.0}.json
+(Burgers fidelity)     | stress_tests/fidelity_sweep_alpha1.0_ncol100.json
+────────────────────────────────────────────────────────────────────────────────
+
+CONTROLS
+────────────────────────────────────────────────────────────────────────────────
+tab:lr_control         | controls/lr_schedule_control_results.json         | 5 seeds, LR schedule ablation
+(LR constant control)  | controls/lr_control_results.json                 | 5 seeds, constant LR comparison
+tab:causal             | controls/causal_alpha{0.5,1.0}_ncol100_nterms20_10seeds.json
+tab:heterogeneous      | controls/heterogeneous_alpha{0.5,1.0}_ncol100_10seeds.json
+────────────────────────────────────────────────────────────────────────────────
+
+SUPPLEMENTARY
+────────────────────────────────────────────────────────────────────────────────
+tab:adaptive_phase2    | supplementary/adaptive_phase2_ncol100_nterms15.json
+tab:parametric         | supplementary/parametric_alpha_ncol200_nterms15.json
+(NTK analysis)         | supplementary/ntk_analysis_ncol30.json           | Remark in Section 4
+────────────────────────────────────────────────────────────────────────────────
+
+REMOVED FROM PAPER
+────────────────────────────────────────────────────────────────────────────────
+tab:composite          | REMOVED — rerun used broken dummy model (2-scalar
+                       | weighted average, NOT Meng-Karniadakis architecture).
+                       | Section and table deleted from paper.
+────────────────────────────────────────────────────────────────────────────────
+
+REFERENCE SOLUTIONS (for reproducing from scratch)
+────────────────────────────────────────────────────────────────────────────────
+Located in results/fdr/reference_alpha{0.3..1.0}.npz
+           results/fdr/reference_2d_alpha{0.5,1.0}.npz
+           results/burgers/reference_alpha{0.5,0.7,1.0}.npz
+These are Laplace-domain (1D) / Fourier-Laplace (2D) / spectral (Burgers)
+high-fidelity solutions used as ground truth for L2 error computation.
