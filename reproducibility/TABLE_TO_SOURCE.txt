@@ -18,7 +18,7 @@ tab:keff               | (computed analytically from Proposition 1)        | K_e
 CORE 1D EXPERIMENTS (results/rerun/ — canonical, post-March 29 config)
 ────────────────────────────────────────────────────────────────────────────────
 tab:ncol (α=0.5)       | core/ncol_alpha0.5_nterms12.json                 | 10 seeds, N_col={100,200,500}
-tab:ncol (α=0.7)       | core/ncol_alpha0.7_nterms12.json                 | PENDING — experiment running
+tab:ncol (α=0.7)       | core/ncol_alpha0.7_nterms12.json                 | 10 seeds, N_col={100,200,500}
 tab:ncol (α=1.0)       | core/ncol_alpha1.0_nterms12.json                 | 10 seeds, N_col={100,200,500}
 tab:fidelity_sweep_a05 | core/fidelity_10seed_alpha0.5.json               | 10 seeds, N_terms={8,12,15,20}
 tab:fidelity_sweep     | core/fidelity_10seed_alpha1.0.json               | 10 seeds, N_terms={5,8,10,12,15,20}
@@ -37,9 +37,13 @@ tab:gl_ablation        | ablations/gl_ablation_alpha0.5.json              | 10 s
 
 STRESS TESTS
 ────────────────────────────────────────────────────────────────────────────────
-tab:2d_ncol            | stress_tests/2d_alpha0.5_ncol{50,100,200,500,1500}.json
-tab:2d_ncol_a10        | stress_tests/2d_alpha1.0_ncol{200,500,1500}.json
-tab:burgers            | stress_tests/results_alpha{0.5,0.7,1.0}_ncol{100,200,500}.json
+fig:time_localization  | core/fidelity_10seed_timepoints_alpha{0.5,1.0}_MERGED.json  (10 seeds; per-timepoint tp_values at t={0.05,0.15,0.25,0.40}; Section "transfer benefit is time-localized")
+tab:2d_ncol            | stress_tests/2d_ncol_sweep_alpha0.5_stdLF.json   (5 seeds; keys MF_N{200,500,1500}, Vanilla_N*, Van+100_N*)
+tab:2d_ncol_a10        | stress_tests/2d_ncol_sweep_alpha1.0_stdLF.json   (5 seeds)
+(S1 high-quality LF)   | stress_tests/2d_ncol_sweep_alpha0.5_hqLF.json    (5 seeds, ~2.4% LF; prose ratios 0.47-0.60x)
+(S2 high-quality LF)   | stress_tests/2d_ncol_sweep_alpha1.0_hqLF.json    (5 seeds, ~1.7% LF; prose ratios 0.49-0.65x)
+(S1 data-only Phase 1) | stress_tests/2d_phase1_dataonly_alpha0.5_hqLF.json (5 seeds; data-only-P1 control, 16.67% vs BC-aware 16.40%)
+tab:burgers            | stress_tests/results_alpha{0.5,0.7,1.0}_ncol{100,200,500}.json  (NOTE: these results_* files hold the BURGERS sweep, not the 1D FDR sweep despite the name)
 tab:burgers_ansatz     | stress_tests/ansatz_alpha{0.5,1.0}.json
 (Burgers fidelity)     | stress_tests/fidelity_sweep_alpha1.0_ncol100.json
 ────────────────────────────────────────────────────────────────────────────────
@@ -56,7 +60,8 @@ SUPPLEMENTARY
 ────────────────────────────────────────────────────────────────────────────────
 tab:adaptive_phase2    | supplementary/adaptive_phase2_ncol100_nterms15.json
 tab:parametric         | supplementary/parametric_alpha_ncol200_nterms15.json
-(NTK analysis)         | supplementary/ntk_analysis_ncol30.json           | Remark in Section 4
+(NTK analysis)         | supplementary/ntk_analysis_ncol30.json           | Methods NTK remark (small net)
+(NTK prod-net)         | ablations/ntk_analysis_prod_ncol30.json          | Methods NTK remark (82,689-param production net, 7.82e5 vs 7.23e5)
 ────────────────────────────────────────────────────────────────────────────────
 
 REMOVED FROM PAPER
